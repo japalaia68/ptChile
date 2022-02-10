@@ -1,0 +1,3 @@
+-- CREATE TABLE T_FOO (
+--     ...
+-- ) as select * from CSVREAD('classpath:04_SAMPLE_vmt_county.csv');
