@@ -30,6 +30,7 @@ import pt.model.Sample;
 import pt.service.SampleService;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -51,7 +52,7 @@ public class HomeController {
     @ApiOperation(value = "echo", nickname = "health")
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 //    @PreAuthorize("hasPermission('','EJEPLO_VALIDACION_PERMISOS_USUARIO')")
-    public ResponseEntity<EchoRspDto> echo() throws IOException, CustomServiceException, XmlPullParserException {
+    public ResponseEntity<EchoRspDto> echo( HttpServletRequest request) throws IOException, CustomServiceException, XmlPullParserException {
         LOGGER.info("Executing health method.");
         EchoRspDto echoRspDto=new EchoRspDto();
         echoRspDto.setTimestamp(new Date().getTime());
@@ -59,10 +60,7 @@ public class HomeController {
 
         InetAddress inetAddress = InetAddress.getLocalHost();
         echoRspDto.setHostname(inetAddress.getHostName());
-        echoRspDto.setVisitorIp(String.valueOf(inetAddress));
-
-        MavenXpp3Reader reader = new MavenXpp3Reader();
-        Model model = reader.read(new FileReader("pom.xml"));
+        echoRspDto.setVisitorIp(request.getRemoteAddr());
         echoRspDto.setEngine(System.getProperty("java.version"));
 
         return new ResponseEntity(echoRspDto, HttpStatus.OK);
