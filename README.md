@@ -11,7 +11,7 @@ mvn clean package
 ## EJECUCION EN DOCKER
 
 docker build --tag=ptchile-server:latest .
-docker run -p8080:8081 message-server:latest
+docker run -p8080:8080 message-server:latest
 
 Url:
 http://localhost:8080/swagger-ui.html
