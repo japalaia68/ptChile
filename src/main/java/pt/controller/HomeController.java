@@ -63,7 +63,7 @@ public class HomeController {
 
         MavenXpp3Reader reader = new MavenXpp3Reader();
         Model model = reader.read(new FileReader("pom.xml"));
-        echoRspDto.setEngine(model.getVersion());
+        echoRspDto.setEngine(System.getProperty("java.version"));
 
         return new ResponseEntity(echoRspDto, HttpStatus.OK);
     }
